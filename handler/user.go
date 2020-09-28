@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/service"
-	"github.com/wq1019/go-image_uploader/image_url"
 	"strconv"
+
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/service"
+	"github.com/gin-gonic/gin"
 )
 
 type userHandler struct {
-	imageUrl image_url.URL
+	//imageUrl image_url.URL
 }
 
 func (*userHandler) UpdateBanStatus(c *gin.Context) {
@@ -52,19 +52,19 @@ func (u *userHandler) UserList(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{
 		"count": count,
-		"data":  convert2UserListResp(users, u.imageUrl),
+		"data":  convert2UserListResp(users),
 	})
 }
 
-func convert2UserListResp(users []*model.User, imageUrl image_url.URL) []map[string]interface{} {
+func convert2UserListResp(users []*model.User) []map[string]interface{} {
 	userList := make([]map[string]interface{}, 0, len(users))
-	for _, v := range users {
-		userList = append(userList, convert2UserResp(v, imageUrl))
-	}
+	// for _, v := range users {
+	// 	userList = append(userList, convert2UserResp(v, imageUrl))
+	// }
 	return userList
 }
 
-func convert2UserResp(user *model.User, imageUrl image_url.URL) map[string]interface{} {
+func convert2UserResp(user *model.User) map[string]interface{} {
 	var gender string
 	if user.Gender {
 		gender = "男"
@@ -72,15 +72,15 @@ func convert2UserResp(user *model.User, imageUrl image_url.URL) map[string]inter
 		gender = "女"
 	}
 	return map[string]interface{}{
-		"id":                user.Id,
-		"name":              user.Name,
-		"email":             user.Email,
-		"gender":            gender,
-		"profile":           user.Profile,
-		"nickname":          user.Nickname,
-		"created_at":        user.CreatedAt,
-		"updated_at":        user.UpdatedAt,
-		"avatar_url":        imageUrl.Generate(user.AvatarHash),
+		"id":         user.Id,
+		"name":       user.Name,
+		"email":      user.Email,
+		"gender":     gender,
+		"profile":    user.Profile,
+		"nickname":   user.Nickname,
+		"created_at": user.CreatedAt,
+		"updated_at": user.UpdatedAt,
+		//"avatar_url":        imageUrl.Generate(user.AvatarHash),
 		"group_name":        user.Group.Name,
 		"avatar_hash":       user.AvatarHash,
 		"used_storage":      user.UsedStorage,
@@ -91,6 +91,6 @@ func convert2UserResp(user *model.User, imageUrl image_url.URL) map[string]inter
 	}
 }
 
-func NewUserHandler(imageUrl image_url.URL) *userHandler {
-	return &userHandler{imageUrl: imageUrl}
+func NewUserHandler() *userHandler {
+	return &userHandler{}
 }

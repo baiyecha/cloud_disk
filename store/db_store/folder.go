@@ -2,10 +2,10 @@ package db_store
 
 import (
 	"fmt"
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/model"
 	"github.com/emirpasic/gods/sets/hashset"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/model"
 	"strconv"
 	"strings"
 )

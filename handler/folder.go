@@ -1,20 +1,18 @@
 package handler
 
 import (
-	"fmt"
-	model2 "github.com/NetEase-Object-Storage/nos-golang-sdk/model"
-	"github.com/NetEase-Object-Storage/nos-golang-sdk/nosclient"
-	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/handler/middleware"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/service"
 	"net/http"
 	"strconv"
+
+	model2 "github.com/NetEase-Object-Storage/nos-golang-sdk/model"
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/handler/middleware"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/service"
+	"github.com/gin-gonic/gin"
 )
 
 type folderHandler struct {
-	nosClient  *nosclient.NosClient
 	bucketName string
 }
 
@@ -206,15 +204,15 @@ func (f *folderHandler) DeleteSource(c *gin.Context) {
 	}
 
 	if len(deleteMultiObjects.Objects) > 0 {
-		deleteRequest := &model2.DeleteMultiObjectsRequest{
-			Bucket:        f.bucketName,
-			DelectObjects: &deleteMultiObjects,
-		}
-		_, err := f.nosClient.DeleteMultiObjects(deleteRequest)
-		if err != nil {
-			_ = c.Error(errors.BadRequest(fmt.Sprintf("删除文件失败: %+v", err), err))
-			return
-		}
+		// deleteRequest := &model2.DeleteMultiObjectsRequest{
+		// 	Bucket:        f.bucketName,
+		// 	DelectObjects: &deleteMultiObjects,
+		// }
+		//_, err := f.nosClient.DeleteMultiObjects(deleteRequest)
+		// if err != nil {
+		// 	_ = c.Error(errors.BadRequest(fmt.Sprintf("删除文件失败: %+v", err), err))
+		// 	return
+		// }
 	}
 	c.Status(http.StatusNoContent)
 }
@@ -367,6 +365,6 @@ func (*folderHandler) Copy2Folder(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
-func NewFolderHandler(client *nosclient.NosClient, bucketName string) *folderHandler {
-	return &folderHandler{nosClient: client, bucketName: bucketName}
+func NewFolderHandler(bucketName string) *folderHandler {
+	return &folderHandler{bucketName: bucketName}
 }

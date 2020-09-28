@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/pkg/hasher"
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/pkg/hasher"
 )
 
 type userService struct {

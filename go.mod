@@ -1,8 +1,11 @@
-module github.com/wq1019/cloud_disk
+module github.com/baiyecha/cloud_disk
+
+go 1.14
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/NetEase-Object-Storage/nos-golang-sdk v0.0.0-20171031020902-cc8892cb2b05
+	github.com/baiyecha/go-file-uploader v1.0.7-0.20200928074455-a0227685833a
 	github.com/bitly/go-simplejson v0.5.0 // indirect
 	github.com/emirpasic/gods v1.12.0
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
@@ -18,7 +21,6 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/json-iterator/go v1.1.5 // indirect
 	github.com/mattn/go-isatty v0.0.4 // indirect
-	github.com/micro/go-config v0.13.2
 	github.com/minio/minio-go v6.0.13+incompatible
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
@@ -31,8 +33,6 @@ require (
 	github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2 // indirect
 	github.com/urfave/cli v1.20.0
 	github.com/vmihailenco/msgpack v4.0.1+incompatible
-	github.com/wq1019/go-file-uploader v1.0.6
-	github.com/wq1019/go-image_uploader v1.0.1
 	github.com/zm-dev/gerrors v0.0.4
 	go.uber.org/atomic v1.3.2 // indirect
 	go.uber.org/multierr v1.1.0 // indirect
@@ -41,5 +41,5 @@ require (
 	golang.org/x/tools v0.0.0-20190116231616-b258f6da2383 // indirect
 	google.golang.org/appengine v1.4.0 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
+	gopkg.in/yaml.v2 v2.2.2
 )

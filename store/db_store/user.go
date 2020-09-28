@@ -1,9 +1,9 @@
 package db_store
 
 import (
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/model"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/model"
 )
 
 type dbUser struct {

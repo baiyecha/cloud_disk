@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/wq1019/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/model"
 )
 
 type certificateService struct {

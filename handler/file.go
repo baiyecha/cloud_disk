@@ -2,8 +2,8 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/handler/middleware"
-	"github.com/wq1019/cloud_disk/service"
+	"github.com/baiyecha/cloud_disk/handler/middleware"
+	"github.com/baiyecha/cloud_disk/service"
 	"net/http"
 )
 

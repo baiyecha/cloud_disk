@@ -1,9 +1,9 @@
 package redis_store
 
 import (
+	"github.com/baiyecha/cloud_disk/model"
 	"github.com/go-redis/redis"
 	"github.com/vmihailenco/msgpack"
-	"github.com/wq1019/cloud_disk/model"
 )
 
 type redisTicket struct {

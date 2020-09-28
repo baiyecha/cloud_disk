@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/store/db_store"
+	"github.com/baiyecha/cloud_disk/store/db_store"
 )
 
 func Gorm(db *gorm.DB) gin.HandlerFunc {

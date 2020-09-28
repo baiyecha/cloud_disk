@@ -2,8 +2,8 @@ package subscribe
 
 import (
 	"context"
-	"github.com/wq1019/cloud_disk/pkg/pubsub"
-	"github.com/wq1019/cloud_disk/server"
+	"github.com/baiyecha/cloud_disk/pkg/pubsub"
+	"github.com/baiyecha/cloud_disk/server"
 )
 
 func StartSubQueue(svr *server.Server) {

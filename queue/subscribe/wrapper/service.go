@@ -2,8 +2,8 @@ package wrapper
 
 import (
 	"context"
-	"github.com/wq1019/cloud_disk/pkg/pubsub"
-	"github.com/wq1019/cloud_disk/service"
+	"github.com/baiyecha/cloud_disk/pkg/pubsub"
+	"github.com/baiyecha/cloud_disk/service"
 )
 
 type Service struct {

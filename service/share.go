@@ -1,6 +1,6 @@
 package service
 
-import "github.com/wq1019/cloud_disk/model"
+import "github.com/baiyecha/cloud_disk/model"
 
 type shareService struct {
 	model.ShareStore

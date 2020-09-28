@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/urfave/cli"
-	"github.com/wq1019/cloud_disk/cmd/cli/command"
-	"github.com/wq1019/cloud_disk/server"
+	"github.com/baiyecha/cloud_disk/cmd/cli/command"
+	"github.com/baiyecha/cloud_disk/server"
 	"log"
 	"os"
 )

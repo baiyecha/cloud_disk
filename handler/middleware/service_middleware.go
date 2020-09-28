@@ -1,8 +1,8 @@
 package middleware
 
 import (
+	"github.com/baiyecha/cloud_disk/service"
 	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/service"
 )
 
 func Service(svc service.Service) gin.HandlerFunc {

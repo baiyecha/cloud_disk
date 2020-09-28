@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
+	_ "github.com/baiyecha/cloud_disk/docs"
+	"github.com/baiyecha/cloud_disk/handler"
+	"github.com/baiyecha/cloud_disk/server"
 	"github.com/rs/cors"
-	_ "github.com/wq1019/cloud_disk/docs"
-	"github.com/wq1019/cloud_disk/handler"
-	"github.com/wq1019/cloud_disk/server"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
@@ -26,7 +26,7 @@ func init() {
 // @description 云盘的 Api 服务.
 // @termsOfService https://github.com/zm-dev
 // @contact.name API Support
-// @contact.url https://github.com/wq1019
+// @contact.url https://github.com/baiyecha
 // @contact.email 2013855675@qq.com
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html

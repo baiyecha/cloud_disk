@@ -2,27 +2,22 @@ package server
 
 import (
 	"fmt"
-	nosConfig "github.com/NetEase-Object-Storage/nos-golang-sdk/config"
-	"github.com/NetEase-Object-Storage/nos-golang-sdk/nosclient"
+	"log"
+	"os"
+	"time"
+
+	"github.com/baiyecha/cloud_disk/config"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/pkg/pubsub"
+	"github.com/baiyecha/cloud_disk/service"
+	go_file_uploader "github.com/baiyecha/go-file-uploader"
 	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/minio/minio-go"
 	"github.com/spf13/afero"
-	"github.com/wq1019/cloud_disk/config"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/pkg/pubsub"
-	"github.com/wq1019/cloud_disk/service"
-	"github.com/wq1019/go-file-uploader"
-	fileUploaderNos "github.com/wq1019/go-file-uploader/nos"
-	"github.com/wq1019/go-image_uploader"
-	"github.com/wq1019/go-image_uploader/image_url"
-	imageUploaderNos "github.com/wq1019/go-image_uploader/nos"
 	"go.uber.org/zap"
-	"log"
-	"os"
-	"time"
 )
 
 func setupGorm(debug bool, databaseConfig *config.DatabaseConfig) *gorm.DB {
@@ -69,7 +64,6 @@ func autoMigrate(db *gorm.DB) {
 		&model.Share{},
 		&model.Folder{},
 		&model.FolderFile{},
-		&image_uploader.Image{},
 	).Error
 	if err != nil {
 		log.Fatalf("AutoMigrate 失败！ error: %+v", err)
@@ -97,17 +91,17 @@ func setupFileStore(s *Server) go_file_uploader.Store {
 	return go_file_uploader.NewDBStore(s.DB)
 }
 
-func setupFileUploader(s *Server) go_file_uploader.Uploader {
-	return fileUploaderNos.NewNosUploader(
-		go_file_uploader.HashFunc(go_file_uploader.MD5HashFunc),
-		setupNos(s),
-		setupFileStore(s),
-		s.Conf.Nos.BucketName,
-		go_file_uploader.Hash2StorageNameFunc(go_file_uploader.TwoCharsPrefixHash2StorageNameFunc),
-		s.Conf.Nos.Endpoint,
-		s.Conf.Nos.ExternalEndpoint,
-	)
-}
+// func setupFileUploader(s *Server) go_file_uploader.Uploader {
+// 	return fileUploaderNos.NewNosUploader(
+// 		go_file_uploader.HashFunc(go_file_uploader.MD5HashFunc),
+// 		setupNos(s),
+// 		setupFileStore(s),
+// 		s.Conf.Nos.BucketName,
+// 		go_file_uploader.Hash2StorageNameFunc(go_file_uploader.TwoCharsPrefixHash2StorageNameFunc),
+// 		s.Conf.Nos.Endpoint,
+// 		s.Conf.Nos.ExternalEndpoint,
+// 	)
+// }
 
 func setupMinio(s *Server) *minio.Client {
 	SslEnable := s.Conf.Minio.SSL == "true"
@@ -123,38 +117,38 @@ func setupMinio(s *Server) *minio.Client {
 	return minioClient
 }
 
-func setupNos(s *Server) *nosclient.NosClient {
-	nosClient, err := nosclient.New(&nosConfig.Config{
-		Endpoint:  s.Conf.Nos.Endpoint,
-		AccessKey: s.Conf.Nos.AccessKey,
-		SecretKey: s.Conf.Nos.SecretKey,
-	})
-	if err != nil {
-		log.Fatalf("nos client 创建失败! error: %+v", err)
-	}
-	return nosClient
-}
+// func setupNos(s *Server) *nosclient.NosClient {
+// 	nosClient, err := nosclient.New(&nosConfig.Config{
+// 		Endpoint:  s.Conf.Nos.Endpoint,
+// 		AccessKey: s.Conf.Nos.AccessKey,
+// 		SecretKey: s.Conf.Nos.SecretKey,
+// 	})
+// 	if err != nil {
+// 		log.Fatalf("nos client 创建失败! error: %+v", err)
+// 	}
+// 	return nosClient
+// }
 
-func setupImageUploader(s *Server) image_uploader.Uploader {
-	nosClient := setupNos(s)
-	return imageUploaderNos.NewNosUploader(
-		image_uploader.HashFunc(image_uploader.MD5HashFunc),
-		image_uploader.NewDBStore(s.DB),
-		nosClient,
-		s.Conf.Nos.BucketName,
-		image_uploader.Hash2StorageNameFunc(image_uploader.TwoCharsPrefixHash2StorageNameFunc),
-	)
-}
+// func setupImageUploader(s *Server) image_uploader.Uploader {
+// 	nosClient := setupNos(s)
+// 	return imageUploaderNos.NewNosUploader(
+// 		image_uploader.HashFunc(image_uploader.MD5HashFunc),
+// 		image_uploader.NewDBStore(s.DB),
+// 		nosClient,
+// 		s.Conf.Nos.BucketName,
+// 		image_uploader.Hash2StorageNameFunc(image_uploader.TwoCharsPrefixHash2StorageNameFunc),
+// 	)
+// }
 
-func setupImageURL(s *Server) image_url.URL {
-	return image_url.NewNosImageProxyURL(
-		s.Conf.ImageProxy.Host,
-		s.Conf.Nos.ExternalEndpoint,
-		s.Conf.Nos.BucketName,
-		s.Conf.ImageProxy.OmitBaseUrl == "true",
-		image_uploader.Hash2StorageNameFunc(image_uploader.TwoCharsPrefixHash2StorageNameFunc),
-	)
-}
+// func setupImageURL(s *Server) image_url.URL {
+// 	return image_url.NewNosImageProxyURL(
+// 		s.Conf.ImageProxy.Host,
+// 		s.Conf.Nos.ExternalEndpoint,
+// 		s.Conf.Nos.BucketName,
+// 		s.Conf.ImageProxy.OmitBaseUrl == "true",
+// 		image_uploader.Hash2StorageNameFunc(image_uploader.TwoCharsPrefixHash2StorageNameFunc),
+// 	)
+// }
 
 func loadEnv(appEnv string) string {
 	if appEnv == "" {
@@ -194,10 +188,7 @@ func SetupServer(configPath string) *Server {
 	s.Pub = pubsub.NewPub(s.RedisClient, s.Logger)
 	s.Service = service.NewService(s.DB, s.RedisClient, s.BaseFs, s.Conf, s.Pub)
 	s.Logger.Debug("load uploader service...")
-	s.FileUploader = setupFileUploader(s)
-	s.ImageUploader = setupImageUploader(s)
-	s.ImageUrl = setupImageURL(s)
-	s.BucketName = s.Conf.Nos.BucketName
-	s.NosClient = setupNos(s)
+	//s.FileUploader = setupFileUploader(s)
+	//s.BucketName = s.Conf.Nos.BucketName
 	return s
 }

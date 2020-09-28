@@ -2,11 +2,11 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/handler/middleware"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/service"
-	"github.com/wq1019/go-file-uploader"
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/handler/middleware"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/service"
+	"github.com/baiyecha/go-file-uploader"
 	"net/http"
 )
 

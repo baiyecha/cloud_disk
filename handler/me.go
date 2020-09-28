@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/errors"
-	"github.com/wq1019/cloud_disk/handler/middleware"
-	"github.com/wq1019/cloud_disk/service"
-	"github.com/wq1019/go-image_uploader/image_url"
 	"net/http"
+
+	"github.com/baiyecha/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/handler/middleware"
+	"github.com/baiyecha/cloud_disk/service"
+	"github.com/gin-gonic/gin"
 )
 
 type meHandler struct {
-	imageUrl image_url.URL
+	//imageUrl image_url.URL
 }
 
 func (m *meHandler) Show(c *gin.Context) {
@@ -20,7 +20,7 @@ func (m *meHandler) Show(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, convert2UserResp(user, m.imageUrl))
+	c.JSON(http.StatusOK, convert2UserResp(user))
 }
 
 func (m *meHandler) UpdateInfo(c *gin.Context) {
@@ -50,6 +50,6 @@ func (m *meHandler) UpdateInfo(c *gin.Context) {
 	c.JSON(204, nil)
 }
 
-func NewMeHandler(imageUrl image_url.URL) *meHandler {
-	return &meHandler{imageUrl: imageUrl}
+func NewMeHandler() *meHandler {
+	return &meHandler{}
 }

@@ -2,9 +2,9 @@ package wrapper
 
 import (
 	"context"
+	"github.com/baiyecha/cloud_disk/pkg/pubsub"
+	"github.com/baiyecha/cloud_disk/store/db_store"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/pkg/pubsub"
-	"github.com/wq1019/cloud_disk/store/db_store"
 )
 
 type DB struct {

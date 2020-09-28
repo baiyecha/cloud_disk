@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
-	"github.com/wq1019/cloud_disk/queue/subscribe"
-	"github.com/wq1019/cloud_disk/server"
+	"github.com/baiyecha/cloud_disk/queue/subscribe"
+	"github.com/baiyecha/cloud_disk/server"
 	"go.uber.org/zap"
 )
 

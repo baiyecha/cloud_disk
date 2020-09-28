@@ -1,25 +1,26 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"github.com/wq1019/cloud_disk/handler/middleware"
-	"github.com/wq1019/cloud_disk/server"
 	"net/http"
 	"strconv"
+
+	"github.com/baiyecha/cloud_disk/handler/middleware"
+	"github.com/baiyecha/cloud_disk/server"
+	"github.com/gin-gonic/gin"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func CreateHTTPHandler(s *server.Server) http.Handler {
 	authHandler := NewAuthHandler()
-	meHandler := NewMeHandler(s.ImageUrl)
-	userHandler := NewUserHandler(s.ImageUrl)
+	userHandler := NewUserHandler()
 	uploadFileHandler := NewUploadFileHandler(s.FileUploader)
-	uploadImageHandler := NewUploadImage(s.ImageUploader, s.ImageUrl)
-	folderHandler := NewFolderHandler(s.NosClient, s.BucketName)
+	//uploadImageHandler := NewUploadImage(s.ImageUploader, s.ImageUrl)
+	folderHandler := NewFolderHandler(s.BucketName)
 	fileHandler := NewFileHandler()
 	downloadHandler := NewDownloadHandler(s.FileUploader)
 	groupHandler := NewGroupHandler()
+	meHandler := NewMeHandler()
 
 	if s.Debug {
 		gin.SetMode(gin.DebugMode)
@@ -49,7 +50,7 @@ func CreateHTTPHandler(s *server.Server) http.Handler {
 		// 上传文件
 		authorized.POST("/upload_file", uploadFileHandler.UploadChunk)
 		// 上传图片
-		authorized.POST("/upload_image", uploadImageHandler.UploadImage)
+		//authorized.POST("/upload_image", uploadImageHandler.UploadImage)
 		// 指定目录下第一层的资源列表
 		authorized.GET("/folder", folderHandler.LoadFolder)
 		// 创建目录

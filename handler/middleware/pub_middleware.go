@@ -1,8 +1,8 @@
 package middleware
 
 import (
+	"github.com/baiyecha/cloud_disk/queue"
 	"github.com/gin-gonic/gin"
-	"github.com/wq1019/cloud_disk/queue"
 )
 
 func Pub(pub queue.PubQueue) gin.HandlerFunc {

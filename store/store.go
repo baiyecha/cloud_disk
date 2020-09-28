@@ -1,11 +1,11 @@
 package store
 
 import (
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/store/db_store"
+	"github.com/baiyecha/cloud_disk/store/redis_store"
 	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/store/db_store"
-	"github.com/wq1019/cloud_disk/store/redis_store"
 )
 
 type Store interface {

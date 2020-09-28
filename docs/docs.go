@@ -16,7 +16,7 @@ var doc = `{
         "termsOfService": "https://github.com/zm-dev",
         "contact": {
             "name": "API Support",
-            "url": "https://github.com/wq1019",
+            "url": "https://github.com/baiyecha",
             "email": "2013855675@qq.com"
         },
         "license": {

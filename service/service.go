@@ -1,14 +1,14 @@
 package service
 
 import (
+	"github.com/baiyecha/cloud_disk/config"
+	"github.com/baiyecha/cloud_disk/model"
+	"github.com/baiyecha/cloud_disk/pkg/hasher"
+	"github.com/baiyecha/cloud_disk/pkg/pubsub"
+	"github.com/baiyecha/cloud_disk/store"
 	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/afero"
-	"github.com/wq1019/cloud_disk/config"
-	"github.com/wq1019/cloud_disk/model"
-	"github.com/wq1019/cloud_disk/pkg/hasher"
-	"github.com/wq1019/cloud_disk/pkg/pubsub"
-	"github.com/wq1019/cloud_disk/store"
 	"runtime"
 	"time"
 )

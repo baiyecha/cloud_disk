@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/wq1019/cloud_disk/errors"
+	"github.com/baiyecha/cloud_disk/errors"
 	"github.com/zm-dev/gerrors"
 )
 

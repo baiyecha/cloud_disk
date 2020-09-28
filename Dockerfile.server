@@ -7,10 +7,10 @@ RUN set -eux; \
         openssl \
         go
 
-COPY . /go/src/github.com/wq1019/cloud_disk
+COPY . /go/src/github.com/baiyecha/cloud_disk
 
-RUN go build -v -o /app/server /go/src/github.com/wq1019/cloud_disk/cmd/server/main.go && \
-    go build -v -o /app/cli /go/src/github.com/wq1019/cloud_disk/cmd/cli/main.go
+RUN go build -v -o /app/server /go/src/github.com/baiyecha/cloud_disk/cmd/server/main.go && \
+    go build -v -o /app/cli /go/src/github.com/baiyecha/cloud_disk/cmd/cli/main.go
 
 
 FROM alpine:3.7
@@ -25,7 +25,7 @@ ENV TZ=Asia/Shanghai
 
 COPY --from=builder /app/server /app/server
 COPY --from=builder /app/cli /app/cli
-COPY --from=builder /go/src/github.com/wq1019/cloud_disk/config/config.yml /app/config/config.yml
+COPY --from=builder /go/src/github.com/baiyecha/cloud_disk/config/config.yml /app/config/config.yml
 
 WORKDIR /app
 

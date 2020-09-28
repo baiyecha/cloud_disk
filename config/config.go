@@ -1,12 +1,10 @@
 package config
 
 import (
-	"github.com/micro/go-config"
-	"github.com/micro/go-config/source/env"
-	"github.com/micro/go-config/source/file"
+	"io/ioutil"
 	"log"
-	"os"
-	"path"
+
+	"gopkg.in/yaml.v2"
 )
 
 type DatabaseConfig struct {
@@ -71,13 +69,11 @@ type Config struct {
 
 func LoadConfig(filepath string) *Config {
 	c := &Config{}
-	pwd, _ := os.Getwd()
-	fileSource := file.NewSource(file.WithPath(path.Join(pwd, filepath)))
-	checkErr(config.Load(fileSource))
-	// env 的配置会覆盖文件中的配置
-	envSource := env.NewSource(env.WithStrippedPrefix(config.Get("env-var-prefix").String("CLOUD")))
-	checkErr(config.Load(envSource))
-	checkErr(config.Scan(c))
+	yamlFile, err := ioutil.ReadFile(filepath)
+	checkErr(err)
+	err = yaml.Unmarshal(yamlFile, c)
+	checkErr(err)
+	return c
 	return c
 }
 

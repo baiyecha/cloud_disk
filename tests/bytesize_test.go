@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"github.com/wq1019/cloud_disk/pkg/bytesize"
+	"github.com/baiyecha/cloud_disk/pkg/bytesize"
 	"testing"
 )
 
